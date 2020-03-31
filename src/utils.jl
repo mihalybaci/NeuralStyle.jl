@@ -26,9 +26,9 @@ the helper function pad2d.
 
 Inputs:
 -------
-l - length
-k - kernel size
-s - stride
+l - length\n
+k - kernel size\n
+s - stride\n
 
 Output:
 ----
