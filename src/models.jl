@@ -1,7 +1,7 @@
 # Autoencode CNN - structure borrowed from Metalhead.jl's vgg19.jl
 abstract type AutoencoderModel end
 
-function autocnn_layers(image_size)
+function autocnn_layers(image_size::Tuple{Int, Int})
     k = (3, 3);  # kernel size
     s = (2, 2);  # stride size
     d = (1, 1);  # dilation size
@@ -43,7 +43,7 @@ struct AutoCNN <: AutoencoderModel
     layers::Chain
 end
 
-AutoCNN(image_size) = AutoCNN(autocnn_layers(image_size))
+AutoCNN(image_size::Tuple{Int, Int}) = AutoCNN(autocnn_layers(image_size))
 
 Base.show(io::IO, ::AutoCNN) = print(io, "AutoCNN()")
 
