@@ -7,9 +7,6 @@ using Images
 using Plots
 using Random
 
-# Exports from Images
-export load, save
-
 # Exports from BSON
 export @load, @save
 
