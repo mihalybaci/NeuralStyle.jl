@@ -1,12 +1,19 @@
 module NeuralStyle
 
+using BSON: @load, @save
+using Dates: now()
 using Flux
+using Images
+using Plots
 using Random
 
+# Exports from Images
+export load, save
+
 include("utils.jl")
+export nstrides1d, nstrides2d, pad1d, pad2d, tensor2image, image2tensor
 
-export nstrides1d, nstrides2d, pad1d, pad2d
-
-greet() = print("Hello World!")
+include("models.jl")
+export AutoCNN
 
 end # module
