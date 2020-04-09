@@ -20,6 +20,6 @@ include("models.jl")
 export AutoCNN
 
 include("datasets.jl")
-export load_contents, load_styles
+export list_contents, list_styles, content_dir, style_dir
 
 end # module
