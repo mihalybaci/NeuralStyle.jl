@@ -2,12 +2,12 @@
 Try to get a CNN to output the same image that went in
 =#
 
-#using BSON: @save
-#using Dates
-#using Flux
+using BSON
+using Dates
+using Flux
 #using Images
 using NeuralStyle
-#using Plots
+using Plots
 
 @info "Loading images..."
 image_in = load("style_images/katsushika-hokusai_the-great-wave-off-kanagawa_1829.jpg")
@@ -15,7 +15,7 @@ tensor_in = image2tensor(image_in);
 
 
 ten_dim = size(tensor_in)[1:2]  # Model requires tensor width/height to determine padding
-autoenocde = AutoCNN(ten_dim)  # Load autoencoder model
+autoencode = AutoCNN(ten_dim)  # Load autoencoder model
 
 # Begin Training cyles
 opt = Flux.ADAM()  # Standard optimizer
@@ -34,8 +34,8 @@ end
 
 @info "Saving model..."
 rightnow = Dates.now()  # Do this to have all times be equal
-@save "pretrained_models/great_wave_model-$nepochs-$rightnow.bson" autoencode
-@save "pretrained_models/great_wave_loss-$nepochs-$rightnow.bson" losses
+BSON.@save "pretrained_models/great_wave_model-$nepochs-$rightnow.bson" autoencode
+BSON.@save "pretrained_models/great_wave_loss-$nepochs-$rightnow.bson" losses
 
 @info "Plotting loss..."
 p = plot(title="Great Wave of Kanagawa",

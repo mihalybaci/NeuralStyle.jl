@@ -1,7 +1,7 @@
 module NeuralStyle
 
 using BSON: @load, @save
-using Dates: now()
+using Dates
 using Flux
 using Images
 using Plots
