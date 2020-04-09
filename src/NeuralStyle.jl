@@ -10,10 +10,16 @@ using Random
 # Exports from Images
 export load, save
 
+# Exports from BSON
+export @load, @save
+
 include("utils.jl")
 export nstrides1d, nstrides2d, pad1d, pad2d, tensor2image, image2tensor
 
 include("models.jl")
 export AutoCNN
+
+include("datasets.jl")
+export content_images, style_images
 
 end # module

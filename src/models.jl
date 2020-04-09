@@ -1,4 +1,6 @@
-# Autoencode CNN - basic functor structure borrowed from Metalhead.jl's vgg19.jl
+# Autoencode CNN - structure borrowed from Metalhead.jl's vgg19.jl
+abstract type AutoencoderModel end
+
 function autocnn_layers(image_size)
     k = (3, 3);  # kernel size
     s = (2, 2);  # stride size
@@ -37,7 +39,7 @@ function autocnn_layers(image_size)
     return autoencode
 end
 
-struct AutoCNN
+struct AutoCNN <: AutoencoderModel
     layers::Chain
 end
 
