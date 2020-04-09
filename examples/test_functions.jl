@@ -28,3 +28,6 @@ for i=1:nepochs
     push!(losses, autoencode_loss(tensor_in))
     println("Total loss = $(losses[end])")
 end
+
+@info "Creating output image..."
+image_out = tensor2image(auto(tensor_in))
