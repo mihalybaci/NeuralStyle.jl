@@ -6,7 +6,7 @@ function pVGG_layers(image_size::Tuple{Int, Int})
     nlayers = 16
     kk = repeat([(3, 3)], nlayers);  # kernel size, all equal
     ss = repeat([(1, 1)], nlayers);  # stride size
-    ss[2] = ss[4] = ss[8] = ss[12] = ss[16] = (2, 2)
+    ss[1] = ss[3] = ss[5] = ss[9] = ss[13] = (2, 2)
     d = (1, 1);  # dilation size
 
 
