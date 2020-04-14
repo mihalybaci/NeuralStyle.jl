@@ -10,13 +10,21 @@ using Random
 # Exports from BSON
 export @load, @save
 
+# Basic utilities
 include("utils.jl")
 export nstrides1d, nstrides2d, pad1d, pad2d, tensor2image, image2tensor
 
-include("models.jl")
-export AutoCNN
-
+# Provides locations for included contents and styles
 include("datasets.jl")
 export list_contents, list_styles
+
+# Homegrown models
+include("models/abstractmodel.jl")
+export AutoEncoderModel
+include("models/aem5.jl")
+export AEM5
+include("models/pvgg.jl")
+export pVGG
+
 
 end # module

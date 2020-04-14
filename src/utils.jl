@@ -39,16 +39,18 @@ function pad1d(l, k, s)
     pad_tot = s*(n - 1) + k - l  # Padding needed to get to n kernels
     # If padding still does not give an inter number of kernel strides
     # Then print an error
+    @info "$l  $k  $s"
     if ((l - k + pad_tot) / s + 1) % 1 != 0
         @error "Could not pad array properly"
     end
     # Try to evenly space padding between sides
     # left, right, top, and bottom sides.
     # The following pads bottom/right sides first
-    p1 = pad_tot ÷ 2
-    p2 = pad_tot - p1
+    @info "pad_tot = $pad_tot  |  div = $(pad_tot ÷ 2)"
+    p1 = convert(Int, pad_tot ÷ 2)
+    p2 = convert(Int, pad_tot) - p1
 
-    return convert.(Int, (p1, p2))
+    return (p1, p2)
 end
 
 """
@@ -70,6 +72,26 @@ A 4-element tuple with the number of elements needed to pad each side of a 2-D m
 pad2d(l, k, s) = (pad1d(l[1], k[1], s[1])...,  pad1d(l[2], k[2], s[2])...)
 
 """
+padchain(N, l, k, s)
+
+A function for outputting an array of padding tuples for use in Flux Chain models
+"""
+function padchain(N, l, k, s)
+    ls = Array{Tuple}(undef, N)
+    ps = Array{Tuple}(undef, N)
+
+    ls[1] = l
+    ps[1] = pad2d(ls[1], k[1], s[1])
+    for i = 2:N
+        ls[i] = nstrides2d(ls[i-1], k[i-1], ps[i-1], s[i-1])
+        ps[i] = pad2d(ls[i], k[i], s[i])
+    end
+
+    return ps
+end
+
+
+"""
 image2tensor(image)
 
 Converts an input greyscale or RGB image into a tensor suitable for use by Flux.
@@ -88,7 +110,7 @@ end
 """
 tensor2image(tensor)
 
-Converts an input greyscale or RGB image into a tensor suitable for use by Flux.
+Converts an input tensor suitable into greyscale or RGB image.
 """
 function tensor2image(tensor)
     if size(tensor)[3] == 1  # Grayscale
